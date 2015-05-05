@@ -25,14 +25,14 @@ $(function () {
     function onResize() {
         canvas.width = $container.innerWidth();
         canvas.height = $container.innerHeight();
-        ctx.resetTransform();
+        //ctx.resetTransform();
         var r = canvas.width / W;
-        ctx.scale(r, r);
-//        W = canvas.width;
+        //ctx.scale(r, r);
+//        W = canvas.width  ;
         H = canvas.height / r;
     }
 
-    onResize();
+    //onResize();
     $(window).on('resize', onResize);
 
     var x = 0;
@@ -45,26 +45,33 @@ $(function () {
 
         ctx.clearRect(0, 0, W, H);
 
+        ctx.save();
+        ctx.translate(0, -Math.sqrt(2)*100/4);
+        ctx.scale(1, 0.5);
+        ctx.rotate(Math.PI/4);
+
         var gray;
         for (var w = 0 ; w < W ; w += L) {
             if ((w / L) % 2 === 0) {
-                gray = true;
-            } else {
                 gray = false;
+            } else {
+                gray = true;
             }
             for (var h = 0 ; h < H ; h += L) {
                 if (gray) {
                     ctx.fillStyle = 'gray';
                 } else {
-                    ctx.fillStyle = 'white';
+                    ctx.fillStyle = 'orange';
                 }
                 ctx.fillRect(w, h, L, L);
                 gray = !gray;
             }
         }
 
-        ctx.fillStyle = 'black';
-        ctx.fillRect(x, 0, L, L);
+        ctx.restore();
+
+        //ctx.fillStyle = 'black';
+        //ctx.fillRect(x, 0, L, L);
         if (dir) {
             x += inc;
             if (x >= W - L) {
@@ -91,6 +98,13 @@ $(function () {
     };
 
     // start the mainloop
-    animFrame(recursiveAnim);
-
+    //animFrame(recursiveAnim);
+    recursiveAnim();
+/*
+    sq2=Math.sqrt(2)
+    ctx.scale(1, 0.5)
+    ctx.translate(0, -sq2*100/4)
+    ctx.rotate(Math.PI/4)
+    ctx.fillRect(0, 0, 100, 100)
+*/
 });
