@@ -16,7 +16,7 @@ $(function () {
         game.add.sprite(0, 0, 'sky');
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
-        platforms = game.add.group();
+        var platforms = game.add.group();
 
         //  We will enable physics for any object that is created in this group
         platforms.enableBody = true;
